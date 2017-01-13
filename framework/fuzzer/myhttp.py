@@ -100,6 +100,7 @@ class HttpQueue(FuzzQueue):
 	if self._proxies: c = self._set_proxy(c, obj)
 
 	c.response_queue = ((StringIO(), StringIO(), obj))
+	c.setopt(pycurl.TIMEOUT, self.options.get('conn_timeout'))
 	c.setopt(pycurl.WRITEFUNCTION, c.response_queue[0].write)
 	c.setopt(pycurl.HEADERFUNCTION, c.response_queue[1].write)
 

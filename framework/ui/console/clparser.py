@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 import sys
 import getopt
 import time
@@ -355,7 +356,12 @@ class CLParser:
 	if "-s" in optsd:
 	    options.set("sleeper", float(optsd["-s"][0]))
 
+	options.set("max_concurrent", 16)
+
 	if "-t" in optsd:
-	    options.set("max_concurrent", int(optsd["-t"][0]))
+		options.set("conn_timeout", int(optsd["-t"][0]))
+	else:
+		options.set("conn_timeout", 5)
+
 
 
