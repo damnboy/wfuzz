@@ -1,3 +1,7 @@
 入口为Fuzzer对象
+    命令行参数解析由CLParser对象负责
 
-包含一个HTTPQueue
+    包含一个HTTPQueue
+
+        执行HTTP请求的响应由FuzzResult对象进行处理
+        从页面上抓取额外的内容(例如title等),可以继承该对象来实现.
