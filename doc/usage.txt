@@ -1,0 +1,39 @@
+-z 表示需要FUZZ的字段
+由资源类型以及资源两部分组成
+资源类型,资源
+file,路径
+  （file,/home/user/dict.txt）
+  
+list,以-为分隔符的资源
+  (list,index.html-index.php-index.aspx)
+  
+range,以-为分割的数字
+  (range, 1-100)
+
+资源可编码 ./wfuzz.py -e encoders 
+url           | utf8_binary       | Replaces ALL characters in string using the \uxx escape                           
+url           | first_nibble_hex  | Replaces ALL characters in string using the %%dd? escape                          
+url_safe, url | urlencode         | Replace special characters in string using the %xx escape. Letters, digits, and   
+url           | doble_nibble_hex  | Replaces ALL characters in string using the %%dd%dd escape                        
+url_safe, url | double_urlencode  | Applies a double encode to special characters in string using the %25xx escape.   
+url           | second_nibble_hex | Replaces ALL characters in string using the %?%dd escape                          
+url           | uri_unicode       | Replaces ALL characters in string using the %u00xx escape                         
+url           | uri_double_hex    | Encodes ALL charachers using the %25xx escape.                                    
+url           | utf8              | Replaces ALL characters in string using the \u00xx escape                         
+url           | uri_triple_hex    | Encodes ALL charachers using the %25%xx%xx escape.                                
+url           | uri_hex           | Encodes ALL charachers using the %xx escape.    
+
+
+资源类型,资源,编码类型
+./wfuzz.py -z list,123,uri_double_hex http://localhost/FUZZ
+
+
+-X表示一个特定的FUZZ占位符 既HTTP方法
+./wfuzz.py -z file,/home/user/http_methods.txt -X http://127.0.0.1/
+./wfuzz.py -z list,PUT-GET-POST-OPTIONS -X http://127.0.0.1
+
+从stdin导入
+ crunch 2 2 | python wfuzz.py -z stdin, http://localhost/FUZZ
+
+ 
+-d来提交post数据
